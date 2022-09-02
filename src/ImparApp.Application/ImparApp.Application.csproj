@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ImparApp.Domain\ImparApp.Domain.csproj" />
+    <ProjectReference Include="..\ImparApp.Infra\ImparApp.Infra.csproj" />
+  </ItemGroup>
+
 </Project>
