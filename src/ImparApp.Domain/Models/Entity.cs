@@ -1,6 +1,6 @@
 ﻿namespace ImparApp.Domain.Models
 {
-    public abstract class BaseEntity
+    public abstract class Entity
     {
         public int Id { get; set; }
     }

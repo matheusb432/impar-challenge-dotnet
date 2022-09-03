@@ -9,7 +9,7 @@ namespace ImparApp.Application.Interfaces
 
         Task<OperationResult> Insert(PhotoPostViewModel viewModel);
 
-        Task<OperationResult> Update(PhotoPutViewModel viewModel);
+        Task<OperationResult> Update(int id, PhotoPutViewModel viewModel);
 
         Task<OperationResult> Delete(int id);
     }

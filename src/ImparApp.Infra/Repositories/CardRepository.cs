@@ -1,5 +1,6 @@
 ﻿using ImparApp.Domain.Models;
 using ImparApp.Infra.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace ImparApp.Infra.Repositories
 {
@@ -8,5 +9,10 @@ namespace ImparApp.Infra.Repositories
         public CardRepository(ImparContext context) : base(context)
         {
         }
+
+        public override async Task<Card> GetByIdAsync(long id) 
+            => await _dbSet
+                .Include(c => c.Photo)
+                .FirstOrDefaultAsync(e => e.Id == id);
     }
 }

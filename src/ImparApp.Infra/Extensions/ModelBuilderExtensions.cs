@@ -7,6 +7,15 @@ namespace ImparApp.Infra.Extensions
     {
         public static void SeedDatabase(this ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Card>()
+               .HasData(
+                  new Card { Id = 1, PhotoId = 1, Name = "Card 1", Status = "Status 1", Photo = Photo.None() },
+                  new Card { Id = 2, PhotoId = 2, Name = "Card 2", Status = "Status 2", Photo = Photo.None() },
+                  new Card { Id = 3, PhotoId = 3, Name = "Card 3", Status = "Status 3", Photo = Photo.None() },
+                  new Card { Id = 4, PhotoId = 4, Name = "Card 4", Status = "Status 4", Photo = Photo.None() },
+                  new Card { Id = 5, PhotoId = 5, Name = "Card 5", Status = "Status 5", Photo = Photo.None() }
+            );
             modelBuilder.Entity<Photo>()
                 .HasData(
                    new Photo { Id = 1, Base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAOCAIAAABLkRCkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEESURBVDhPhZI/CsIwFIer4OIkeADByc2xl+ghegnBzd0r6NoDuHgBB3Hq4uBWsE6C0ojY+KeNL74Q40tawze0SX4f773W6y8Cm3Dlp8e2uHgmPGuONkNyE3FYQMHOLaLQgN12/VicJQBx2iE7xKUszny066nT9SS7H0SRiDw0L2iXtDhbMBXscRWf9Sw4uYbDkhZShc4TBawoWcLmNB6Y90EkqxLMka9SqKOVn51U+et9V+URc2b1CnMCshb9okHXkZ+VoFYBQAdyLqRPpCzzvwo9ge//Ql18DIrrbYY9Qr7mI3wtiF0XtD3f9u0uzBS1IMRVGs8AUQBuC6JdL9aoyksWwRvMhyA+ywOm9QAAAABJRU5ErkJggg==" },
@@ -16,14 +25,7 @@ namespace ImparApp.Infra.Extensions
                    new Photo { Id = 5, Base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAOCAYAAADE84fzAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABGSURBVDhPY/wPBAw0AkxQmiZg6BqON8zfyapCWbiB0OPbUBYmGNhgYZKVgbJIBwQN//f4CZRFOhimqYVSMHSDhYaGMzAAAE83Eg4T1IkNAAAAAElFTkSuQmCC" }
             );
 
-            modelBuilder.Entity<Card>()
-               .HasData(
-                  new Card { Id = 1, PhotoId = 1, Name = "Card 1", Status = "Status 1" },
-                  new Card { Id = 2, PhotoId = 2, Name = "Card 2", Status = "Status 2" },
-                  new Card { Id = 3, PhotoId = 3, Name = "Card 3", Status = "Status 3" },
-                  new Card { Id = 4, PhotoId = 4, Name = "Card 4", Status = "Status 4" },
-                  new Card { Id = 5, PhotoId = 5, Name = "Card 5", Status = "Status 5" }
-            );
+
         }
     }
 }

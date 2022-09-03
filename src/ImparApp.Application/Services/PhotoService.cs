@@ -30,14 +30,17 @@ namespace ImparApp.Application.Services
             return Success(entity.Id);
         }
 
-        public async Task<OperationResult> Update(PhotoPutViewModel viewModel)
+        public async Task<OperationResult> Update(int id, PhotoPutViewModel viewModel)
         {
             var entity = Mapper.Map<Photo>(viewModel);
 
             if (!EntityIsValid(new PhotoValidator(), entity))
                 return Error(HttpStatusCode.BadRequest);
 
-            var entityFromDb = await _repo.GetByIdAsync(entity.Id);
+            entity.Id = id;
+
+            var entityFromDb = await _repo.GetByIdAsNoTrackingAsync(id);
+
 
             if (entityFromDb is null)
                 return Error(HttpStatusCode.NotFound);
@@ -48,7 +51,7 @@ namespace ImparApp.Application.Services
 
         public async Task<OperationResult> Delete(int id)
         {
-            var entity = await _repo.GetByIdAsync(id);
+            var entity = await _repo.GetByIdAsNoTrackingAsync(id);
 
             if (entity is null)
                 return Error(HttpStatusCode.NotFound);

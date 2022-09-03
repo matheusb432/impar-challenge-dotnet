@@ -8,10 +8,9 @@ namespace ImparApp.Infra.Configurations.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Card> builder)
         {
-            builder.HasKey(e => e.Id);
-            builder.Property(e => e.Name).HasMaxLength(100);
-            builder.Property(e => e.Status).HasMaxLength(100);
-            builder.HasOne(e => e.Photo).WithOne(p => p.Card);
+            builder.Property(e => e.Name).HasMaxLength(100).IsUnicode(false);
+            builder.Property(e => e.Status).HasMaxLength(100).IsUnicode(false);
+            builder.HasOne(e => e.Photo).WithOne(p => p.Card).HasForeignKey("Card", "PhotoId");
         }
     }
 }

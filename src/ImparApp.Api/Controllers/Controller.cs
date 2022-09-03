@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ImparApp.Api.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public abstract class Controller : ControllerBase
     {
         protected ActionResult CustomResponse(OperationResult result)
@@ -28,7 +29,9 @@ namespace ImparApp.Api.Controllers
             }
         }
 
-        private static ErrorViewModel MapErrorsToResponse(ValidationResult validationResult)
-            => new ErrorViewModel(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
+        private static ErrorViewModel MapErrorsToResponse(ValidationResult? validationResult)
+            => validationResult is not null ? 
+            new ErrorViewModel(validationResult.Errors.Select(e => e.ErrorMessage).ToList()) : 
+            new ErrorViewModel();
     }
 }

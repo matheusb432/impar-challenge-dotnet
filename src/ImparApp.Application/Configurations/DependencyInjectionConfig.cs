@@ -1,4 +1,5 @@
-﻿using ImparApp.Application.Interfaces;
+﻿using System.Reflection;
+using ImparApp.Application.Interfaces;
 using ImparApp.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,8 @@ namespace ImparApp.Application.Configurations
         {
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ICardService, CardService>();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
         }
     }
 }

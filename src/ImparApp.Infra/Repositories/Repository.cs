@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ImparApp.Infra.Repositories
 {
-    public abstract class Repository<T> : IRepository<T> where T : BaseEntity
+    public abstract class Repository<T> : IRepository<T> where T : Entity
     {
-        private readonly ImparContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly ImparContext _context;
+        protected readonly DbSet<T> _dbSet;
 
         public Repository(ImparContext context)
         {
@@ -17,9 +17,14 @@ namespace ImparApp.Infra.Repositories
 
         public IQueryable<T> Query() => _dbSet.AsQueryable();
 
-        public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.ToListAsync();
+        public virtual async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.ToListAsync();
 
-        public async Task<T?> GetByIdAsync(long id) => await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
+        public virtual async Task<T?> GetByIdAsync(long id) => await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
+
+        public virtual async Task<T?> GetByIdAsNoTrackingAsync(long id) 
+            => await _dbSet
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id);
 
         public async Task<T> InsertAsync(T entity)
         {

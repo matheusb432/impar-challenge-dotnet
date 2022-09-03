@@ -30,14 +30,16 @@ namespace ImparApp.Application.Services
             return Success(entity.Id);
         }
 
-        public async Task<OperationResult> Update(CardPutViewModel viewModel)
+        public async Task<OperationResult> Update(int id, CardPutViewModel viewModel)
         {
             var entity = Mapper.Map<Card>(viewModel);
 
             if (!EntityIsValid(new CardValidator(), entity))
                 return Error(HttpStatusCode.BadRequest);
 
-            var entityFromDb = await _repo.GetByIdAsync(entity.Id);
+            entity.Id = id;
+
+            var entityFromDb = await _repo.GetByIdAsNoTrackingAsync(entity.Id);
 
             if (entityFromDb is null)
                 return Error(HttpStatusCode.NotFound);
@@ -48,7 +50,7 @@ namespace ImparApp.Application.Services
 
         public async Task<OperationResult> Delete(int id)
         {
-            var entity = await _repo.GetByIdAsync(id);
+            var entity = await _repo.GetByIdAsNoTrackingAsync(id);
 
             if (entity is null)
                 return Error(HttpStatusCode.NotFound);

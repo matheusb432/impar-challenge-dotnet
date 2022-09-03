@@ -12,7 +12,7 @@ namespace ImparApp.Application.Services
     {
         protected readonly IMapper Mapper;
 
-        private ValidationResult _validationResult = null!;
+        private ValidationResult? _validationResult;
 
         protected Service(IMapper mapper) => Mapper = mapper;
 
@@ -38,7 +38,7 @@ namespace ImparApp.Application.Services
 
         protected bool EntityIsValid<TV, TE>(TV validator, TE entity) 
             where TV : AbstractValidator<TE> 
-            where TE : BaseEntity
+            where TE : Entity
         {
             var result = validator.Validate(entity);
             if (result.IsValid) return true;
@@ -50,7 +50,7 @@ namespace ImparApp.Application.Services
 
         protected bool EntityIsValid<TV, TE>(TV validator, IEnumerable<TE> entities) 
             where TV : AbstractValidator<TE> 
-            where TE : BaseEntity
+            where TE : Entity
         {
             foreach (var entity in entities)
             {
