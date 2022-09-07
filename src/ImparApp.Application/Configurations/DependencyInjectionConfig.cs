@@ -7,7 +7,7 @@ namespace ImparApp.Application.Configurations
 {
     public static class DependencyInjectionConfig
     {
-        public static void AddDependencyInjectionConfig(this IServiceCollection services)
+        public static void AddApplicationDependencyInjectionConfig(this IServiceCollection services)
         {
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ICardService, CardService>();

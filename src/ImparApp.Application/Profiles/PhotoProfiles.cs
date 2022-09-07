@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Text.RegularExpressions;
+using AutoMapper;
 using ImparApp.Application.ViewModels.Photo;
 using ImparApp.Domain.Models;
 

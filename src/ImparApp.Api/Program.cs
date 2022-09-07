@@ -5,22 +5,16 @@ using Microsoft.AspNetCore.OData;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
-// TODO test
 var services = builder.Services;
 
-// TODO to services var?
-builder.Services.AddControllers().AddOData(
+services.AddControllers().AddOData(
     opt => opt.Count().Filter().OrderBy().SetMaxTop(50));
-builder.Services.AddMvc(opt =>
-{
-    // TODO 
-    //opt.Filters.Add<FluentValidation>();
-});
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-builder.Services.AddDependencyInjectionConfig();
-builder.Services.AddDatabaseConfiguration(configuration);
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+
+services.AddApplicationDependencyInjectionConfig();
+services.AddDatabaseConfiguration(configuration);
 
 var app = builder.Build();
 
