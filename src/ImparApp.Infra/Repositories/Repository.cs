@@ -4,7 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ImparApp.Infra.Repositories
 {
-    public abstract class Repository<T> : IRepository<T> where T : Entity
+    /// <summary>
+    /// Repository abstraction to allow for an intermediate layer between the Infrastructure and Application layers
+    /// </summary>
+    /// <typeparam name="T">A Entity model that exists within the ImparContext</typeparam>
+    public abstract class Repository<T> : IRepository<T> 
+        where T : Entity
     {
         protected readonly ImparContext _context;
         protected readonly DbSet<T> _dbSet;

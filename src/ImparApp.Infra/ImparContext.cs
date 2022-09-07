@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using ImparApp.Domain.Models;
+using ImparApp.Infra.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ImparApp.Infra
@@ -7,7 +8,8 @@ namespace ImparApp.Infra
     public class ImparContext : DbContext
     {
         public ImparContext(DbContextOptions options)
-            : base(options) { 
+            : base(options)
+        {
         }
 
         public DbSet<Card> Cards { get; set; } = null!;
@@ -18,9 +20,7 @@ namespace ImparApp.Infra
         {
             ConfigureDeleteBehavior(modelBuilder);
 
-            // TODO fix: causing exception
-            //modelBuilder.SeedDatabase();
-
+            modelBuilder.SeedDatabase();
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(ImparContext))!);
         }

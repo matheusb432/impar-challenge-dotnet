@@ -2,10 +2,12 @@
 using AutoMapper;
 using ImparApp.Application.Extensions;
 using ImparApp.Application.Interfaces;
+using ImparApp.Application.Utils;
 using ImparApp.Application.ViewModels.Photo;
 using ImparApp.Domain.Models;
 using ImparApp.Domain.Models.Validators;
 using ImparApp.Infra.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace ImparApp.Application.Services
 {
@@ -20,30 +22,31 @@ namespace ImparApp.Application.Services
 
         public OperationResult Query() => Success(Mapper.ProjectTo<PhotoViewModel>(_repo.Query()));
 
-        public async Task<OperationResult> Insert(PhotoPostViewModel viewModel)
+        public async Task<OperationResult> Insert(IFormFile image)
         {
-            var entity = Mapper.Map<Photo>(viewModel);
-            if (!EntityIsValid(new PhotoValidator(), entity))
+            if (!(image?.Length > 0))
                 return Error();
 
-            await _repo.InsertAsync(entity);
-            return Success(entity.Id);
+            var photo = Photo.FromBase64(ApplicationUtils.ConvertImageToBase64(image));
+
+            await _repo.InsertAsync(photo);
+
+            return Success(photo.Id);
         }
 
-        public async Task<OperationResult> Update(int id, PhotoPutViewModel viewModel)
+        public async Task<OperationResult> Update(int id, IFormFile image)
         {
-            var entity = Mapper.Map<Photo>(viewModel);
+            if (!(image?.Length > 0))
+                return Error();
 
-            if (!EntityIsValid(new PhotoValidator(), entity))
-                return Error(HttpStatusCode.BadRequest);
+            var photoBase64 = ApplicationUtils.ConvertImageToBase64(image);
 
-            entity.Id = id;
+            var entity = await _repo.GetByIdAsNoTrackingAsync(id);
 
-            var entityFromDb = await _repo.GetByIdAsNoTrackingAsync(id);
-
-
-            if (entityFromDb is null)
+            if (entity is null)
                 return Error(HttpStatusCode.NotFound);
+
+            entity.Base64 = photoBase64;
 
             await _repo.UpdateAsync(entity);
             return Success();

@@ -16,19 +16,20 @@ namespace ImparApp.Application.Services
 
         protected Service(IMapper mapper) => Mapper = mapper;
 
-        protected OperationResult Error() => new OperationResult(_validationResult);
+        protected OperationResult Error() => new(_validationResult);
 
-        protected OperationResult Error(HttpStatusCode statusCode) => new OperationResult(_validationResult, statusCode);
+        protected OperationResult Error(HttpStatusCode statusCode) => new(_validationResult, statusCode);
 
         protected OperationResult Error(string errorMessage, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
         {
             var failures = new List<ValidationFailure> { new ValidationFailure(string.Empty, errorMessage) };
-            return new OperationResult(new ValidationResult(failures), statusCode);
+
+            return new(new ValidationResult(failures), statusCode);
         }
 
-        protected OperationResult Success(object? obj = null) => new OperationResult(obj);
+        protected OperationResult Success(object? obj = null) => new(obj);
 
-        protected OperationResult Success(long id) => new OperationResult(new PostReturnViewModel(id));
+        protected OperationResult Success(long id) => new(new PostReturnViewModel(id));
 
         protected void NotifyError(string errorMessage)
         {

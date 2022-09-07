@@ -7,5 +7,7 @@
         public Card? Card { get; set; }
 
         public static Photo None() => new();
+
+        public static Photo FromBase64(string base64) => new() { Base64 = base64 };
     }
 }

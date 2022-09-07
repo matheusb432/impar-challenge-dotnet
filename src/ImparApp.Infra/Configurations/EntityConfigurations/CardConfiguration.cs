@@ -10,7 +10,7 @@ namespace ImparApp.Infra.Configurations.EntityConfigurations
         {
             builder.Property(e => e.Name).HasMaxLength(100).IsUnicode(false);
             builder.Property(e => e.Status).HasMaxLength(100).IsUnicode(false);
-            builder.HasOne(e => e.Photo).WithOne(p => p.Card).HasForeignKey("Card", "PhotoId");
+            builder.HasOne(e => e.Photo).WithOne(p => p.Card).HasForeignKey<Card>(c => c.PhotoId);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ImparApp.Application.Extensions;
 using ImparApp.Application.ViewModels.Photo;
+using Microsoft.AspNetCore.Http;
 
 namespace ImparApp.Application.Interfaces
 {
@@ -7,9 +8,9 @@ namespace ImparApp.Application.Interfaces
     {
         OperationResult Query();
 
-        Task<OperationResult> Insert(PhotoPostViewModel viewModel);
+        Task<OperationResult> Insert(IFormFile image);
 
-        Task<OperationResult> Update(int id, PhotoPutViewModel viewModel);
+        Task<OperationResult> Update(int id, IFormFile image);
 
         Task<OperationResult> Delete(int id);
     }

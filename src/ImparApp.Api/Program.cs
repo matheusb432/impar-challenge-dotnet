@@ -5,9 +5,17 @@ using Microsoft.AspNetCore.OData;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+// TODO test
+var services = builder.Services;
 
+// TODO to services var?
 builder.Services.AddControllers().AddOData(
     opt => opt.Count().Filter().OrderBy().SetMaxTop(50));
+builder.Services.AddMvc(opt =>
+{
+    // TODO 
+    //opt.Filters.Add<FluentValidation>();
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

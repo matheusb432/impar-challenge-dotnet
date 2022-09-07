@@ -3,18 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.OData.Extensions;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.OData.ModelBuilder;
 
 namespace ImparApp.Api.Configurations
 {
     public sealed class ODataQueryAttribute : EnableQueryAttribute
     {
-        public ODataQueryAttribute()
-        {
-
-
-        }
-
         public override void OnActionExecuted(ActionExecutedContext actionExecutedContext)
         {
             if (actionExecutedContext.Exception != null) return;
