@@ -14,7 +14,7 @@ services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
 services.AddApplicationDependencyInjectionConfig();
-services.AddDatabaseConfiguration(configuration);
+services.AddInfraConfiguration(configuration);
 
 var app = builder.Build();
 

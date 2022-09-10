@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ImparApp.Infra.Migrations
 {
     [DbContext(typeof(ImparContext))]
-    [Migration("20220907155956_SeedDatabase")]
-    partial class SeedDatabase
+    [Migration("20220909214826_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,6 @@ namespace ImparApp.Infra.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");

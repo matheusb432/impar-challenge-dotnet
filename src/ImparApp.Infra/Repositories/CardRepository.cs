@@ -14,5 +14,10 @@ namespace ImparApp.Infra.Repositories
             => await _dbSet
                 .Include(c => c.Photo)
                 .FirstOrDefaultAsync(e => e.Id == id);
+
+        public async Task<Card?> GetByPhotoIdAsync(long photoId)
+            => await _dbSet
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.PhotoId == photoId);
     }
 }

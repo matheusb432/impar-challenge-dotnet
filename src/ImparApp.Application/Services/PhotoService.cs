@@ -14,10 +14,12 @@ namespace ImparApp.Application.Services
     public class PhotoService : Service, IPhotoService
     {
         private readonly IPhotoRepository _repo;
+        private readonly ICardRepository _cardRepo;
 
-        public PhotoService(IPhotoRepository repo, IMapper mapper) : base(mapper)
+        public PhotoService(IPhotoRepository repo, ICardRepository cardRepo, IMapper mapper) : base(mapper)
         {
             _repo = repo;
+            _cardRepo = cardRepo;
         }
 
         public OperationResult Query() => Success(Mapper.ProjectTo<PhotoViewModel>(_repo.Query()));
@@ -58,6 +60,11 @@ namespace ImparApp.Application.Services
 
             if (entity is null)
                 return Error(HttpStatusCode.NotFound);
+
+            var card = await _cardRepo.GetByPhotoIdAsync(id);
+
+            if (card is not null)
+                return Error(HttpStatusCode.Conflict);
 
             await _repo.DeleteAsync(entity);
             return Success();

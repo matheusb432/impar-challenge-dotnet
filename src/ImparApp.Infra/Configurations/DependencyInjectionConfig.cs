@@ -11,7 +11,7 @@ namespace ImparApp.Infra.Configurations
 {
     public static class DependencyInjectionConfig
     {
-        public static void AddDatabaseConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static void AddInfraConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDatabase(configuration);
             services.AddRepositories();
@@ -33,6 +33,7 @@ namespace ImparApp.Infra.Configurations
         {
             var serviceProvider = services.BuildServiceProvider();
             var context = serviceProvider.GetRequiredService<ImparContext>();
+
             if (!context.Database.GetService<IRelationalDatabaseCreator>().Exists())
                 context.Database.Migrate();
         }

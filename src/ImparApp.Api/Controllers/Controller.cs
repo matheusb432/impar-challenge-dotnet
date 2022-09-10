@@ -23,6 +23,8 @@ namespace ImparApp.Api.Controllers
             {
                 case HttpStatusCode.NotFound:
                     return NotFound(MapErrorsToResponse(result.Result));
+                case HttpStatusCode.Conflict:
+                    return Conflict(MapErrorsToResponse(result.Result));
                 default:
                     return BadRequest(MapErrorsToResponse(result.Result));
             }
