@@ -8,7 +8,7 @@ namespace ImparApp.Domain.Models.Validators
         {
             RuleFor(e => e.PhotoId).NotEmpty().When(e => e.Photo is null);
             RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
-            RuleFor(x => x.Status).NotEmpty().MaximumLength(100);
+            RuleFor(x => x.Status).MaximumLength(100);
         }
     }
 }
