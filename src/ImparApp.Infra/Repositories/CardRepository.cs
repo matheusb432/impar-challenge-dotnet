@@ -10,7 +10,7 @@ namespace ImparApp.Infra.Repositories
         {
         }
 
-        public override async Task<Card?> GetByIdAsync(long id) 
+        public override async Task<Card?> GetByIdAsync(long id)
             => await _dbSet
                 .Include(c => c.Photo)
                 .FirstOrDefaultAsync(e => e.Id == id);

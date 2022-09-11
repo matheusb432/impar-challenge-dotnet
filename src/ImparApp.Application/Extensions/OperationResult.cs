@@ -3,6 +3,9 @@ using FluentValidation.Results;
 
 namespace ImparApp.Application.Extensions
 {
+    /// <summary>
+    /// Modelo de resultado de operação em endpoints que facilita o tratamento de erros dos serviços
+    /// </summary>
     public class OperationResult
     {
         public object? Content { get; private set; }

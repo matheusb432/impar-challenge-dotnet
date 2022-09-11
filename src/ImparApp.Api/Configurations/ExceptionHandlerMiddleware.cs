@@ -33,8 +33,10 @@ namespace ImparApp.Api.Configurations
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
 
-            var json = new JsonSerializerOptions();
-            json.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+            var json = new JsonSerializerOptions
+            {
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
 
             var result = JsonSerializer.Serialize(new { Exception = exceptionMessage, Details = innerExceptionMessage }, json);
 

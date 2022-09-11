@@ -1,6 +1,4 @@
-﻿using ImparApp.Application.ViewModels.Photo;
-
-namespace ImparApp.Application.ViewModels.Card
+﻿namespace ImparApp.Application.ViewModels.Card
 {
     public class CardPostViewModel
     {

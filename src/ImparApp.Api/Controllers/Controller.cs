@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ImparApp.Api.Controllers
 {
+    /// <summary>
+    /// Controlador base que contém funcionalidades comuns entre todos os controladores da camada da Presentation
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public abstract class Controller : ControllerBase
@@ -23,16 +26,18 @@ namespace ImparApp.Api.Controllers
             {
                 case HttpStatusCode.NotFound:
                     return NotFound(MapErrorsToResponse(result.Result));
+
                 case HttpStatusCode.Conflict:
                     return Conflict(MapErrorsToResponse(result.Result));
+
                 default:
                     return BadRequest(MapErrorsToResponse(result.Result));
             }
         }
 
         private static ErrorViewModel MapErrorsToResponse(ValidationResult? validationResult)
-            => validationResult is not null ? 
-            new ErrorViewModel(validationResult.Errors.Select(e => e.ErrorMessage).ToList()) : 
+            => validationResult is not null ?
+            new ErrorViewModel(validationResult.Errors.Select(e => e.ErrorMessage).ToList()) :
             new ErrorViewModel();
     }
 }

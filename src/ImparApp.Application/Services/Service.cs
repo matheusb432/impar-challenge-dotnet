@@ -8,6 +8,9 @@ using ImparApp.Domain.Models;
 
 namespace ImparApp.Application.Services
 {
+    /// <summary>
+    /// Serviço abstrato que permite o tratamento operações de resposta, erro e validação de endpoints da API
+    /// </summary>
     public abstract class Service
     {
         protected readonly IMapper Mapper;
@@ -37,8 +40,8 @@ namespace ImparApp.Application.Services
             _validationResult = new ValidationResult(failures);
         }
 
-        protected bool EntityIsValid<TV, TE>(TV validator, TE entity) 
-            where TV : AbstractValidator<TE> 
+        protected bool EntityIsValid<TV, TE>(TV validator, TE entity)
+            where TV : AbstractValidator<TE>
             where TE : Entity
         {
             var result = validator.Validate(entity);
@@ -49,8 +52,8 @@ namespace ImparApp.Application.Services
             return false;
         }
 
-        protected bool EntityIsValid<TV, TE>(TV validator, IEnumerable<TE> entities) 
-            where TV : AbstractValidator<TE> 
+        protected bool EntityIsValid<TV, TE>(TV validator, IEnumerable<TE> entities)
+            where TV : AbstractValidator<TE>
             where TE : Entity
         {
             foreach (var entity in entities)

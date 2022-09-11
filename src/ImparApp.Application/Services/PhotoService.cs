@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using AutoMapper;
 using ImparApp.Application.Extensions;
-using ImparApp.Application.Extensions.ViewModels;
 using ImparApp.Application.Interfaces;
 using ImparApp.Application.Utils;
 using ImparApp.Application.ViewModels.Photo;

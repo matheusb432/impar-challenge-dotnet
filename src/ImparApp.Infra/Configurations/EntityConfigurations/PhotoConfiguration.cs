@@ -6,7 +6,7 @@ namespace ImparApp.Infra.Configurations.EntityConfigurations
 {
     internal class PhotoConfiguration : IEntityTypeConfiguration<Photo>
     {
-        public void Configure(EntityTypeBuilder<Photo> builder) 
+        public void Configure(EntityTypeBuilder<Photo> builder)
             => builder.Property(e => e.Base64).IsUnicode(false);
     }
 }

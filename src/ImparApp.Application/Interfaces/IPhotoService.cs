@@ -1,5 +1,4 @@
 ﻿using ImparApp.Application.Extensions;
-using ImparApp.Application.ViewModels.Photo;
 using Microsoft.AspNetCore.Http;
 
 namespace ImparApp.Application.Interfaces

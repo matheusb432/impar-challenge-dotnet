@@ -25,7 +25,7 @@ namespace ImparApp.Infra.Configurations
         }
 
         private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
-            => services.AddDbContext<ImparContext>(opt => 
+            => services.AddDbContext<ImparContext>(opt =>
                 opt.UseSqlServer(configuration.GetConnectionString(InfraUtils.DefaultConnectionName))
                 .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Error));
 
