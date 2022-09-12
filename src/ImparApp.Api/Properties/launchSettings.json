@@ -19,6 +19,20 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "ImparApp.Api-Production": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "DB_USERNAME": "TODO add DB_ env values here to run in prod",
+        "DB_PASSWORD": "",
+        "DB_URL": "",
+        "DB_NAME": "ImparDB"
+      }
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

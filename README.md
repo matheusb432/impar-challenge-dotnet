@@ -30,7 +30,7 @@ Impar Api é uma REST API que permite a leitura e gravação de dados do fronten
 ### Rodando a API em ambiente de desenvolvimento
 
 1. Clonar este repositório com o comando `git clone`.
-2. Abrir o arquivo appsettings.Development.json e alterar o valor de `ConnectionStrings.ImparConnection` para a string de conexão do seu banco de dados.
+2. Abrir o arquivo appsettings.Development.json, ou appsettings.Production.json se quiser rodar API em modo de produção, e alterar o valor de `ConnectionStrings.ImparConnection` para a string de conexão do seu banco de dados.
 3. Abrir a solução `ImparApp.sln` e definir `ImparApp.Presentation` como projeto de inicialização.
 4. Compilar o projeto através do Visual Studio ou pela Dotnet CLI com `dotnet run` na raiz da pasta da camada `ImparApp.Presentation`, o banco de dados ImparDB deve ser criado automaticamente pela API neste ponto.
 5. Acessar a API em <http://localhost:5000> para verificar seu funcionamento.

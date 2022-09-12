@@ -1,6 +1,7 @@
 ﻿using ImparApp.Api.Configurations;
 using ImparApp.Application.Configurations;
 using ImparApp.Infra.Configurations;
+using ImparApp.Infra.Utils;
 using Microsoft.AspNetCore.OData;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +14,10 @@ services.AddControllers().AddOData(
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
+var isDevelopment = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "development", StringComparison.InvariantCultureIgnoreCase);
+
 services.AddApplicationDependencyInjectionConfig();
-services.AddInfraConfiguration(configuration);
+services.AddInfraConfiguration(configuration, isDevelopment);
 
 var app = builder.Build();
 

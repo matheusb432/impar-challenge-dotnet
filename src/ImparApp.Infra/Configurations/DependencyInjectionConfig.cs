@@ -1,4 +1,5 @@
-﻿using ImparApp.Infra.Interfaces;
+﻿using ImparApp.Infra.Extensions;
+using ImparApp.Infra.Interfaces;
 using ImparApp.Infra.Repositories;
 using ImparApp.Infra.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,11 @@ namespace ImparApp.Infra.Configurations
 {
     public static class DependencyInjectionConfig
     {
-        public static void AddInfraConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static void AddInfraConfiguration(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            bool isDevelopment = true
+        )
         {
             services.AddDatabase(configuration);
             services.AddRepositories();
@@ -24,10 +29,24 @@ namespace ImparApp.Infra.Configurations
             services.AddTransient<ICardRepository, CardRepository>();
         }
 
-        private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
-            => services.AddDbContext<ImparContext>(opt =>
-                opt.UseSqlServer(configuration.GetConnectionString(InfraUtils.DefaultConnectionName))
-                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Error));
+        private static void AddDatabase(
+            this IServiceCollection services,
+            IConfiguration configuration
+        ) =>
+            services.AddDbContext<ImparContext>(
+                opt =>
+                    opt.UseSqlServer(
+                            configuration.GetConnectionString(InfraUtils.DefaultConnectionName)
+                        )
+                        .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Error)
+            );
+
+        private static void AddEnvDatabase(this IServiceCollection services) =>
+            services.AddDbContext<ImparContext>(
+                opt =>
+                    opt.UseSqlServer(ConnectionStringBuilder.BuildEnvCnnStr("ImparDB"))
+                        .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Error)
+            );
 
         private static void MigrateDatabase(this IServiceCollection services)
         {
