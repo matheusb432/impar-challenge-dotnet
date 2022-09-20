@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ImparApp.Infra
 {
-    public class ImparContext : DbContext
+    public sealed class ImparContext : DbContext
     {
         public ImparContext(DbContextOptions options)
             : base(options)

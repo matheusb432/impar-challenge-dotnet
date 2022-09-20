@@ -9,7 +9,7 @@ using ImparApp.Infra.Interfaces;
 
 namespace ImparApp.Application.Services
 {
-    public class CardService : Service, ICardService
+    public sealed class CardService : Service, ICardService
     {
         private readonly ICardRepository _repo;
 

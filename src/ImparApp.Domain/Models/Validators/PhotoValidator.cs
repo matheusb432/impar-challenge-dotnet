@@ -2,7 +2,7 @@
 
 namespace ImparApp.Domain.Models.Validators
 {
-    public class PhotoValidator : AbstractValidator<Photo>
+    public sealed class PhotoValidator : AbstractValidator<Photo>
     {
         public PhotoValidator()
         {

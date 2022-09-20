@@ -2,7 +2,7 @@
 
 namespace ImparApp.Domain.Models.Validators
 {
-    public class CardValidator : AbstractValidator<Card>
+    public sealed class CardValidator : AbstractValidator<Card>
     {
         public CardValidator()
         {

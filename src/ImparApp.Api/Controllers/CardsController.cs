@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ImparApp.Api.Controllers
 {
     [ApiController]
-    public class CardsController : Controller
+    public sealed class CardsController : Controller
     {
         private readonly ICardService _service;
 

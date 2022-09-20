@@ -6,7 +6,7 @@ namespace ImparApp.Application.Extensions
     /// <summary>
     /// Modelo de resultado de operação em endpoints que facilita o tratamento de erros dos serviços
     /// </summary>
-    public class OperationResult
+    public sealed class OperationResult
     {
         public object? Content { get; private set; }
         public ValidationResult? Result { get; private set; }

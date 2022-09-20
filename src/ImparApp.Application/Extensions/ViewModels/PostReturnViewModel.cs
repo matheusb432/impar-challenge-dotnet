@@ -1,6 +1,6 @@
 ﻿namespace ImparApp.Application.Extensions.ViewModels
 {
-    public class PostReturnViewModel
+    public sealed class PostReturnViewModel
     {
         public long Id { get; set; }
 

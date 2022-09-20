@@ -1,6 +1,6 @@
 ﻿namespace ImparApp.Domain.Models
 {
-    public class Card : Entity
+    public sealed class Card : Entity
     {
         public int PhotoId { get; set; }
         public string Name { get; set; } = string.Empty;

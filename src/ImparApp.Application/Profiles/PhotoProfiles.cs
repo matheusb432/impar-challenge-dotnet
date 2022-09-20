@@ -4,7 +4,7 @@ using ImparApp.Domain.Models;
 
 namespace ImparApp.Application.Profiles
 {
-    public class PhotoProfiles : Profile
+    public sealed class PhotoProfiles : Profile
     {
         public PhotoProfiles()
         {

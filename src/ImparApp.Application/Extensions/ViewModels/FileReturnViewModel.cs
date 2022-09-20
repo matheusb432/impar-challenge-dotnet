@@ -1,6 +1,6 @@
 ﻿namespace ImparApp.Application.Extensions.ViewModels
 {
-    public class FileReturnViewModel
+    public sealed class FileReturnViewModel
     {
         public byte[] Content { get; set; } = Array.Empty<byte>();
 

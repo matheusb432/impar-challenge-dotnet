@@ -1,6 +1,6 @@
 ﻿namespace ImparApp.Application.Extensions.ViewModels
 {
-    public class ErrorViewModel
+    public sealed class ErrorViewModel
     {
         public ErrorViewModel(List<string> errors) => Errors = errors;
 

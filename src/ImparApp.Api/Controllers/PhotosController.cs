@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ImparApp.Api.Controllers
 {
     [ApiController]
-    public class PhotosController : Controller
+    public sealed class PhotosController : Controller
     {
         private readonly IPhotoService _service;
 

@@ -1,6 +1,6 @@
 ﻿namespace ImparApp.Application.Extensions.ViewModels
 {
-    public class PaginatedViewModel
+    public sealed class PaginatedViewModel
     {
         public long? Total { get; }
 

@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace ImparApp.Api.Configurations
 {
-    public class ExceptionHandlerMiddleware
+    public sealed class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
 

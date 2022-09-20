@@ -1,6 +1,6 @@
 ﻿namespace ImparApp.Application.ViewModels.Card
 {
-    public class CardPutViewModel
+    public sealed class CardPutViewModel
     {
         public int Id { get; set; }
         public int PhotoId { get; set; }

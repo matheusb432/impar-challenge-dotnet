@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ImparApp.Application.Services
 {
-    public class PhotoService : Service, IPhotoService
+    public sealed class PhotoService : Service, IPhotoService
     {
         private readonly IPhotoRepository _repo;
         private readonly ICardRepository _cardRepo;
