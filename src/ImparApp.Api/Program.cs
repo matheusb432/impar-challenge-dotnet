@@ -14,10 +14,8 @@ services.AddControllers().AddOData(
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
-var isDevelopment = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "development", StringComparison.InvariantCultureIgnoreCase);
-
 services.AddApplicationDependencyInjectionConfig();
-services.AddInfraConfiguration(configuration, isDevelopment);
+services.AddInfraConfiguration(configuration);
 
 var app = builder.Build();
 

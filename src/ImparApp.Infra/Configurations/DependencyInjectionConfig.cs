@@ -15,10 +15,17 @@ namespace ImparApp.Infra.Configurations
         public static void AddInfraConfiguration(
             this IServiceCollection services,
             IConfiguration configuration,
-            bool isDevelopment = true
+            bool isEnv = false
         )
         {
-            services.AddDatabase(configuration);
+            if (isEnv)
+            {
+                services.AddEnvDatabase();
+            }
+            else
+            {
+                services.AddDatabase(configuration);
+            }
             services.AddRepositories();
             services.MigrateDatabase();
         }
