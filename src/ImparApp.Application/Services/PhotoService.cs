@@ -15,7 +15,8 @@ namespace ImparApp.Application.Services
         private readonly IPhotoRepository _repo;
         private readonly ICardRepository _cardRepo;
 
-        public PhotoService(IPhotoRepository repo, ICardRepository cardRepo, IMapper mapper) : base(mapper)
+        public PhotoService(IPhotoRepository repo, ICardRepository cardRepo, IMapper mapper)
+            : base(mapper)
         {
             _repo = repo;
             _cardRepo = cardRepo;

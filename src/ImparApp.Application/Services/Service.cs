@@ -21,11 +21,18 @@ namespace ImparApp.Application.Services
 
         protected OperationResult Error() => new(_validationResult);
 
-        protected OperationResult Error(HttpStatusCode statusCode) => new(_validationResult, statusCode);
+        protected OperationResult Error(HttpStatusCode statusCode) =>
+            new(_validationResult, statusCode);
 
-        protected OperationResult Error(string errorMessage, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+        protected OperationResult Error(
+            string errorMessage,
+            HttpStatusCode statusCode = HttpStatusCode.BadRequest
+        )
         {
-            var failures = new List<ValidationFailure> { new ValidationFailure(string.Empty, errorMessage) };
+            var failures = new List<ValidationFailure>
+            {
+                new ValidationFailure(string.Empty, errorMessage)
+            };
 
             return new(new ValidationResult(failures), statusCode);
         }
@@ -36,7 +43,10 @@ namespace ImparApp.Application.Services
 
         protected void NotifyError(string errorMessage)
         {
-            var failures = new List<ValidationFailure> { new ValidationFailure(string.Empty, errorMessage) };
+            var failures = new List<ValidationFailure>
+            {
+                new ValidationFailure(string.Empty, errorMessage)
+            };
             _validationResult = new ValidationResult(failures);
         }
 
@@ -45,7 +55,8 @@ namespace ImparApp.Application.Services
             where TE : Entity
         {
             var result = validator.Validate(entity);
-            if (result.IsValid) return true;
+            if (result.IsValid)
+                return true;
 
             _validationResult = result;
 
@@ -59,7 +70,8 @@ namespace ImparApp.Application.Services
             foreach (var entity in entities)
             {
                 var result = validator.Validate(entity);
-                if (result.IsValid) continue;
+                if (result.IsValid)
+                    continue;
 
                 _validationResult = result;
                 return false;

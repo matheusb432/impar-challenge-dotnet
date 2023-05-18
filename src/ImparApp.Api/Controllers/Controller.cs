@@ -15,7 +15,8 @@ namespace ImparApp.Api.Controllers
     {
         protected ActionResult CustomResponse(OperationResult result)
         {
-            if (!result.IsValid) return ErrorResponse(result);
+            if (!result.IsValid)
+                return ErrorResponse(result);
 
             return Ok(result.Content ?? string.Empty);
         }
@@ -35,9 +36,9 @@ namespace ImparApp.Api.Controllers
             }
         }
 
-        private static ErrorViewModel MapErrorsToResponse(ValidationResult? validationResult)
-            => validationResult is not null ?
-            new ErrorViewModel(validationResult.Errors.Select(e => e.ErrorMessage).ToList()) :
-            new ErrorViewModel();
+        private static ErrorViewModel MapErrorsToResponse(ValidationResult? validationResult) =>
+            validationResult is not null
+                ? new ErrorViewModel(validationResult.Errors.Select(e => e.ErrorMessage).ToList())
+                : new ErrorViewModel();
     }
 }

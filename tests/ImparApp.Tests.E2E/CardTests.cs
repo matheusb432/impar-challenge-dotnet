@@ -1,12 +1,11 @@
-﻿namespace ImparApp.Tests.E2E
+﻿using ImparApp.Tests.E2E.Utils;
+
+namespace ImparApp.Tests.E2E
 {
     [TestClass]
     public sealed class CardTests
     {
         private static IWebDriver _driver = null!;
-        private const string _testUserName = "test_user";
-        private const string _testUserPassword = "AaBb_123456";
-        private const string _failPassword = "---";
 
         public static readonly string Url = PageUrls.CardsUrl;
 
@@ -33,99 +32,79 @@
         public void CleanupTest() { }
 
         [TestMethod]
-        public void Login_WithValidData_ShouldLoginAndRedirectHome()
+        public void CreateCard_ShouldCreateAndRedirectToList()
         {
-            LoginFlow(_driver);
+            CreateFlow(_driver);
 
-            Assert.AreEqual(PageUrls.HomeUrl, _driver.Url);
+            Assert.AreEqual(PageUrls.CardsUrl, _driver.Url);
         }
 
         [TestMethod]
-        public void Login_WithInvalidData_ShouldNotRedirect()
+        public void UpdateCard_ShouldCreateAndUpdateCard()
         {
-            FailedLoginFlow(_driver);
-            Assert.AreEqual(PageUrls.LoginUrl, _driver.Url);
+            UpdateFlow(_driver);
+
+            Assert.AreEqual(PageUrls.CardsUrl, _driver.Url);
         }
 
         [TestMethod]
-        public void LoginAndLogout_ShouldRedirectToLogin()
+        public void DeleteCard_ShouldCreateAndDeleteCard()
         {
-            LoginFlow(_driver);
-            Assert.AreEqual(PageUrls.HomeUrl, _driver.Url);
+            var name = CreateFlow(_driver);
+            DeleteFlow(_driver, name);
 
-            LogoutFlow(_driver);
-            Assert.AreEqual(PageUrls.LoginUrl, _driver.Url);
+            Assert.AreEqual(PageUrls.CardsUrl, _driver.Url);
         }
 
-        [TestMethod]
-        public void SignupAndLogoutAndLogin_ShouldRedirectToLogin()
+        public static string CreateFlow(IWebDriver driver)
         {
-            var signup = SignupFlow(_driver);
-            Assert.AreEqual(PageUrls.HomeUrl, _driver.Url);
+            var name = $"Card - {WebDriverUtils.RandomString(5)}";
+            driver.Navigate().GoToUrl(PageUrls.CardsUrl);
 
-            LogoutFlow(_driver);
-            Assert.AreEqual(PageUrls.LoginUrl, _driver.Url);
+            driver.FindElementWithWait(By.Name("header-new-card")).Click();
+            driver.FindElementWithWait(By.Id("cardName")).SendKeys(name);
+            driver.FindElementWithWait(By.Id("cardStatus")).SendKeys("status test");
 
-            LoginFlow(_driver, LoginForm.FromSignup(signup));
-            Assert.AreEqual(PageUrls.HomeUrl, _driver.Url);
+            driver.FindElement(By.Id("cardPhoto")).Clear();
+            driver
+                .FindElement(By.Id("cardPhoto"))
+                .SendKeys("C:\\impar-app\\test-assets\\dotnet.png");
+
+            driver.FindElementWithWait(By.Name("form-submit")).Click();
+
+            Thread.Sleep(100);
+
+            WebDriverUtils.WaitUntilRedirected(_driver, PageUrls.CardsUrl);
+
+            return name;
         }
 
-        public static SignupForm SignupFlow(IWebDriver _driver)
+        public static string UpdateFlow(IWebDriver driver)
         {
-            var userName = WebDriverUtils.RandomString();
-            var password = WebDriverUtils.RandomString() + "aA_1";
-            var email = WebDriverUtils.RandomString(5) + "@example.com";
-            var signup = SignupForm.AsValid("test user", userName, password, email);
+            var name = CreateFlow(driver);
 
-            _driver.Navigate().GoToUrl(PageUrls.SignupUrl);
+            driver.FindElementWithWait(By.Id("searchCards")).Clear();
+            driver.FindElementWithWait(By.Id("searchCards")).SendKeys(name);
+            driver.FindElementWithWait(By.Id("searchCards")).SendKeys(Keys.Enter);
+            driver.FindElementWithWait(By.Id("searchCards")).SendKeys(Keys.Enter);
+            driver.FindElementWithWait(By.Name("edit-card-item0")).Click();
 
-            _driver.FindElementWithWait(By.Id("cSignupFormUserName")).Clear();
-            _driver.FindElementWithWait(By.Id("cSignupFormUserName")).SendKeys(signup.UserName);
-            _driver.FindElementWithWait(By.Id("cSignupFormPassword")).Clear();
-            _driver.FindElementWithWait(By.Id("cSignupFormPassword")).SendKeys(signup.Password);
-            _driver.FindElementWithWait(By.Id("cSignupFormName")).Clear();
-            _driver.FindElementWithWait(By.Id("cSignupFormName")).SendKeys(signup.Name);
-            _driver.FindElementWithWait(By.Id("cSignupFormEmail")).Clear();
-            _driver.FindElementWithWait(By.Id("cSignupFormEmail")).SendKeys(signup.Email);
-            _driver.FindElementWithWait(By.Id("cSignupFormConfirmPassword")).Clear();
-            _driver
-                .FindElementWithWait(By.Id("cSignupFormConfirmPassword"))
-                .SendKeys(signup.ConfirmPassword);
-            _driver.FindElementWithWait(By.Id("cSignupSubmit")).Click();
+            var editedName = $"{name} -- edit";
 
-            WebDriverUtils.WaitUntilRedirected(_driver, PageUrls.HomeUrl);
-
-            return signup;
+            driver.FindElementWithWait(By.Id("cardName")).SendKeys(editedName);
+            driver.FindElementWithWait(By.Name("form-submit")).Click();
+            Thread.Sleep(100);
+            WebDriverUtils.WaitUntilRedirected(_driver, PageUrls.CardsUrl);
+            return name;
         }
 
-        public static void LoginFlow(IWebDriver _driver, LoginForm? login = null)
+        public static void DeleteFlow(IWebDriver driver, string name)
         {
-            login ??= LoginForm.AsValid(_testUserName, _testUserPassword);
-            var password = login.Password;
-
-            _driver.Navigate().GoToUrl(PageUrls.LoginUrl);
-            _driver.FindElementWithWait(By.Id("cLoginFormUserNameOrEmail")).Clear();
-            _driver
-                .FindElementWithWait(By.Id("cLoginFormUserNameOrEmail"))
-                .SendKeys(login.UserNameOrEmail);
-            _driver.FindElementWithWait(By.Id("cLoginFormPassword")).Clear();
-            _driver.FindElementWithWait(By.Id("cLoginFormPassword")).SendKeys(login.Password);
-            _driver.FindElementWithWait(By.Id("cLoginSubmit")).Click();
-
-            if (password != _failPassword)
-                WebDriverUtils.WaitUntilRedirected(_driver, PageUrls.HomeUrl);
-        }
-
-        public static void FailedLoginFlow(IWebDriver _driver)
-        {
-            LoginFlow(_driver, LoginForm.AsValid(_testUserName, _failPassword));
-        }
-
-        public static void LogoutFlow(IWebDriver _driver)
-        {
-            _driver.FindElementWithWait(By.Id("cMainHeaderLogout")).Click();
-            _driver.FindElementWithWait(By.Id("cModalConfirmConfirm")).Click();
-            WebDriverUtils.WaitUntilRedirected(_driver, PageUrls.LoginUrl);
+            driver.FindElementWithWait(By.Id("searchCards")).Clear();
+            driver.FindElementWithWait(By.Id("searchCards")).SendKeys(name);
+            driver.FindElementWithWait(By.Id("searchCards")).SendKeys(Keys.Enter);
+            driver.FindElementWithWait(By.Name("delete-card-item0")).Click();
+            driver.FindElementWithWait(By.Name("modal-confirm")).Click();
         }
     }
 }

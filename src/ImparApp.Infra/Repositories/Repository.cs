@@ -8,8 +8,7 @@ namespace ImparApp.Infra.Repositories
     /// Abstração de repositório para permitir uma camada intermediária entre as camadas de Infra e Application
     /// </summary>
     /// <typeparam name="T">Um modelo Entity que existe em ImparContext</typeparam>
-    public abstract class Repository<T> : IRepository<T>
-        where T : Entity
+    public abstract class Repository<T> : IRepository<T> where T : Entity
     {
         protected readonly ImparContext _context;
         protected readonly DbSet<T> _dbSet;
@@ -24,12 +23,11 @@ namespace ImparApp.Infra.Repositories
 
         public virtual async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.ToListAsync();
 
-        public virtual async Task<T?> GetByIdAsync(long id) => await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
+        public virtual async Task<T?> GetByIdAsync(long id) =>
+            await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
 
-        public virtual async Task<T?> GetByIdAsNoTrackingAsync(long id)
-            => await _dbSet
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Id == id);
+        public virtual async Task<T?> GetByIdAsNoTrackingAsync(long id) =>
+            await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
 
         public async Task<T> InsertAsync(T entity)
         {

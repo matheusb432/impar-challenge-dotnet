@@ -5,8 +5,6 @@ namespace ImparApp.Infra.Repositories
 {
     internal class PhotoRepository : Repository<Photo>, IPhotoRepository
     {
-        public PhotoRepository(ImparContext context) : base(context)
-        {
-        }
+        public PhotoRepository(ImparContext context) : base(context) { }
     }
 }

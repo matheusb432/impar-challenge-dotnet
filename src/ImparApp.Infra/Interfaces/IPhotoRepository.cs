@@ -2,7 +2,5 @@
 
 namespace ImparApp.Infra.Interfaces
 {
-    public interface IPhotoRepository : IRepository<Photo>
-    {
-    }
+    public interface IPhotoRepository : IRepository<Photo> { }
 }

@@ -11,23 +11,21 @@ namespace ImparApp.Api.Controllers
     {
         private readonly ICardService _service;
 
-        public CardsController(ICardService service)
-            => _service = service;
+        public CardsController(ICardService service) => _service = service;
 
         [HttpGet("odata")]
         [ODataQuery]
         public ActionResult<IQueryable<CardViewModel>> Query() => CustomResponse(_service.Query());
 
         [HttpPost]
-        public async Task<ActionResult<PostReturnViewModel>> Post(CardPostViewModel viewModel)
-            => CustomResponse(await _service.Insert(viewModel));
+        public async Task<ActionResult<PostReturnViewModel>> Post(CardPostViewModel viewModel) =>
+            CustomResponse(await _service.Insert(viewModel));
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, CardPutViewModel viewModel)
-            => CustomResponse(await _service.Update(id, viewModel));
+        public async Task<ActionResult> Put(int id, CardPutViewModel viewModel) =>
+            CustomResponse(await _service.Update(id, viewModel));
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-            => CustomResponse(await _service.Delete(id));
+        public async Task<ActionResult> Delete(int id) => CustomResponse(await _service.Delete(id));
     }
 }

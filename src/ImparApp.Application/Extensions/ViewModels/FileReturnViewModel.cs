@@ -6,18 +6,14 @@
 
         public string MimeType { get; set; } = string.Empty;
 
-        private FileReturnViewModel()
-        {
-        }
+        private FileReturnViewModel() { }
 
-        private static FileReturnViewModel FromFileBytes(byte[] content, string mimeType)
-            => new()
-            {
-                Content = content,
-                MimeType = mimeType
-            };
+        private static FileReturnViewModel FromFileBytes(byte[] content, string mimeType) =>
+            new() { Content = content, MimeType = mimeType };
 
-        public static FileReturnViewModel FromImageBytes(byte[] content, string fileName = "image.png")
-            => FromFileBytes(content, "image/png");
+        public static FileReturnViewModel FromImageBytes(
+            byte[] content,
+            string fileName = "image.png"
+        ) => FromFileBytes(content, "image/png");
     }
 }

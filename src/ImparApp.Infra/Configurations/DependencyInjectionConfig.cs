@@ -43,14 +43,13 @@ namespace ImparApp.Infra.Configurations
             services.AddDbContext<ImparContext>(
                 opt =>
                     opt.UseSqlServer(
-                            configuration.GetConnectionString(InfraUtils.DefaultConnectionName)
-                        )
+                        configuration.GetConnectionString(InfraUtils.DefaultConnectionName)
+                    )
             );
 
         private static void AddEnvDatabase(this IServiceCollection services) =>
             services.AddDbContext<ImparContext>(
-                opt =>
-                    opt.UseSqlServer(ConnectionStringBuilder.BuildEnvCnnStr("ImparDB"))
+                opt => opt.UseSqlServer(ConnectionStringBuilder.BuildEnvCnnStr("ImparDB"))
             );
 
         private static void MigrateDatabase(this IServiceCollection services)
